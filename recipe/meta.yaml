@@ -1,5 +1,5 @@
 {% set name = "vim" %}
-{% set version = "9.0.1435" %}
+{% set version = "9.1.0514" %}
 
 package:
   name: {{ name|lower }}
@@ -7,16 +7,18 @@ package:
 
 source:
   url: https://github.com/vim/vim/archive/v{{ version }}.tar.gz
-  sha256: a7a8b0a5e3de49c4e74c485d6655722f1eef8ca415c1cbe985a2cf7ada70f1dc
+  sha256: f62644845470dadcccd74a3f8fd5e3460c3da4d9be08b1749bed0c4726db4e58
 
 build:
   number: 0
+  skip: true  # [win and python_impl == 'pypy']
 
 requirements:
   build:
     - python                                 # [build_platform != target_platform]
     - cross-python_{{ target_platform }}     # [build_platform != target_platform]
     - {{ compiler('c') }}
+    - {{ stdlib("c") }}
     - {{ compiler('cxx') }}
     - make
   host:
